@@ -1,0 +1,14 @@
+﻿# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+# Custom dockerignore for the `dotnet-sandbox-service-1` build.
+# Directories are relative to the parent directory.
+
+.vs/
+.vscode/
+**/bin/
+**/obj/
+**/.DS_Store/
+cdk/
+
+Dockerfile*

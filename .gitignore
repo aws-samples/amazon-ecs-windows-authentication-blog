@@ -1,0 +1,13 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+node_modules
+.vs
+.DS_Store
+
+# Exclude .NET bin and obj directories...
+bin
+obj
+
+# ...but include CDK bin directories. 
+!**/cdk/bin
