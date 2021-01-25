@@ -4,7 +4,8 @@
 # SPDX-License-Identifier: MIT-0
 
 
-# Set the length of time that the scirpt will wait to refresh the token.
+# Refresh the token periodically.
+# Set the length of time that the script will wait to refresh the token.
 [[ "$DELAY_SECONDS" == "" ]] && DELAY_SECONDS=3600
 
 # If the AWS region hasn't been set, get it from instance metadata. This will work in an instance as well as in an ECS container.
