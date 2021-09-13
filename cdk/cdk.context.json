@@ -20,5 +20,14 @@
     "us-east-2c"
   ],
   "ami:account=273471431875:filters.image-type.0=machine:filters.name.0=Windows_Server-2019-English-Full-ECS_Optimized*:filters.platform.0=windows:filters.state.0=available:region=us-east-2": "ami-0fe820693426cc5dc",
-  "ami:account=273471431875:filters.image-type.0=machine:filters.name.0=Windows_Server-2019-English-Full-Base*:filters.platform.0=windows:filters.state.0=available:region=us-east-2": "ami-0239d3998515e9ed1"
+  "ami:account=273471431875:filters.image-type.0=machine:filters.name.0=Windows_Server-2019-English-Full-Base*:filters.platform.0=windows:filters.state.0=available:region=us-east-2": "ami-0239d3998515e9ed1",
+  "availability-zones:account=273471431875:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ],
+  "ami:account=273471431875:filters.image-type.0=machine:filters.name.0=Windows_Server-2019-English-Full-Base*:filters.platform.0=windows:filters.state.0=available:region=us-east-1": "ami-029bfac3973c1bda1"
 }

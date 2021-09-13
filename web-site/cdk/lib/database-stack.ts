@@ -6,6 +6,7 @@ import * as ec2 from '@aws-cdk/aws-ec2';
 import * as iam from '@aws-cdk/aws-iam';
 import * as rds from '@aws-cdk/aws-rds';
 import * as ssm from '@aws-cdk/aws-ssm';
+import { SqlServerEngineVersion } from '@aws-cdk/aws-rds';
 
 export class DatabaseStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -20,12 +21,12 @@ export class DatabaseStack extends cdk.Stack {
 
     // Create a SQL Server instance inside the VPC and joined to the existing directory.
     const sqlServerInstance = new rds.DatabaseInstance(this, 'web-sql-rds', {
-      engine: rds.DatabaseInstanceEngine.SQL_SERVER_SE,
+      engine: rds.DatabaseInstanceEngine.sqlServerSe({ version: SqlServerEngineVersion.VER_15 }),
       licenseModel: rds.LicenseModel.LICENSE_INCLUDED,
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.XLARGE),
       vpc: vpc,
-      vpcPlacement: { subnetType: ec2.SubnetType.PRIVATE },
-      masterUsername: 'web_dbo',
+      vpcPlacement: { subnetType: ec2.SubnetType.PRIVATE_WITH_NAT },
+      credentials: rds.Credentials.fromGeneratedSecret('web_dbo'),
       autoMinorVersionUpgrade: true,
 
       // You may wish to change these settings in a production environment.
