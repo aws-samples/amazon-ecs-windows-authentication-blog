@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: MIT-0
 
 
+# Refresh the token periodically.
 # Set the length of time that the script will wait to refresh the token.
 [[ "$DELAY_SECONDS" == "" ]] && DELAY_SECONDS=3600
 
