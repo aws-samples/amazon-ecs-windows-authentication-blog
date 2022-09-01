@@ -1,1382 +1,1384 @@
 {
-  "Parameters": {
-    "keyPairName": {
-      "Type": "String",
-      "Description": "The name of the EC2 keypair associated with the Windows Server instance."
-    }
-  },
-  "Resources": {
-    "vpcA2121C38": {
-      "Type": "AWS::EC2::VPC",
-      "Properties": {
-        "CidrBlock": "172.20.0.0/16",
-        "EnableDnsHostnames": true,
-        "EnableDnsSupport": true,
-        "InstanceTenancy": "default",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/Resource"
-      }
-    },
-    "vpcPublicSubnet1Subnet2E65531E": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "CidrBlock": "172.20.0.0/19",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "AvailabilityZone": "us-east-1a",
-        "MapPublicIpOnLaunch": true,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Public"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Public"
-          },
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/Subnet"
-      }
-    },
-    "vpcPublicSubnet1RouteTable48A2DF9B": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/RouteTable"
-      }
-    },
-    "vpcPublicSubnet1RouteTableAssociation5D3F4579": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPublicSubnet1RouteTable48A2DF9B"
-        },
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet1Subnet2E65531E"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/RouteTableAssociation"
-      }
-    },
-    "vpcPublicSubnet1DefaultRoute10708846": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPublicSubnet1RouteTable48A2DF9B"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "vpcIGWE57CBDCA"
-        }
-      },
-      "DependsOn": [
-        "vpcVPCGW7984C166"
-      ],
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/DefaultRoute"
-      }
-    },
-    "vpcPublicSubnet1EIPDA49DCBE": {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "Domain": "vpc",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/EIP"
-      }
-    },
-    "vpcPublicSubnet1NATGateway9C16659E": {
-      "Type": "AWS::EC2::NatGateway",
-      "Properties": {
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet1Subnet2E65531E"
-        },
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "vpcPublicSubnet1EIPDA49DCBE",
-            "AllocationId"
-          ]
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/NATGateway"
-      }
-    },
-    "vpcPublicSubnet2Subnet009B674F": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "CidrBlock": "172.20.32.0/19",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "AvailabilityZone": "us-east-1b",
-        "MapPublicIpOnLaunch": true,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Public"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Public"
-          },
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/Subnet"
-      }
-    },
-    "vpcPublicSubnet2RouteTableEB40D4CB": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/RouteTable"
-      }
-    },
-    "vpcPublicSubnet2RouteTableAssociation21F81B59": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPublicSubnet2RouteTableEB40D4CB"
-        },
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet2Subnet009B674F"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/RouteTableAssociation"
-      }
-    },
-    "vpcPublicSubnet2DefaultRouteA1EC0F60": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPublicSubnet2RouteTableEB40D4CB"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "vpcIGWE57CBDCA"
-        }
-      },
-      "DependsOn": [
-        "vpcVPCGW7984C166"
-      ],
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/DefaultRoute"
-      }
-    },
-    "vpcPublicSubnet2EIP9B3743B1": {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "Domain": "vpc",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/EIP"
-      }
-    },
-    "vpcPublicSubnet2NATGateway9B8AE11A": {
-      "Type": "AWS::EC2::NatGateway",
-      "Properties": {
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet2Subnet009B674F"
-        },
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "vpcPublicSubnet2EIP9B3743B1",
-            "AllocationId"
-          ]
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/NATGateway"
-      }
-    },
-    "vpcPublicSubnet3Subnet11B92D7C": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "CidrBlock": "172.20.64.0/19",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "AvailabilityZone": "us-east-1c",
-        "MapPublicIpOnLaunch": true,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Public"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Public"
-          },
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/Subnet"
-      }
-    },
-    "vpcPublicSubnet3RouteTableA3C00665": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/RouteTable"
-      }
-    },
-    "vpcPublicSubnet3RouteTableAssociationD102D1C4": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPublicSubnet3RouteTableA3C00665"
-        },
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet3Subnet11B92D7C"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/RouteTableAssociation"
-      }
-    },
-    "vpcPublicSubnet3DefaultRoute3F356A11": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPublicSubnet3RouteTableA3C00665"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "GatewayId": {
-          "Ref": "vpcIGWE57CBDCA"
-        }
-      },
-      "DependsOn": [
-        "vpcVPCGW7984C166"
-      ],
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/DefaultRoute"
-      }
-    },
-    "vpcPublicSubnet3EIP2C3B9D91": {
-      "Type": "AWS::EC2::EIP",
-      "Properties": {
-        "Domain": "vpc",
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/EIP"
-      }
-    },
-    "vpcPublicSubnet3NATGateway82F6CA9E": {
-      "Type": "AWS::EC2::NatGateway",
-      "Properties": {
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet3Subnet11B92D7C"
-        },
-        "AllocationId": {
-          "Fn::GetAtt": [
-            "vpcPublicSubnet3EIP2C3B9D91",
-            "AllocationId"
-          ]
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/NATGateway"
-      }
-    },
-    "vpcPrivateSubnet1Subnet934893E8": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "CidrBlock": "172.20.96.0/19",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "AvailabilityZone": "us-east-1a",
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Private"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Private"
-          },
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PrivateSubnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/Subnet"
-      }
-    },
-    "vpcPrivateSubnet1RouteTableB41A48CC": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PrivateSubnet1"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/RouteTable"
-      }
-    },
-    "vpcPrivateSubnet1RouteTableAssociation67945127": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPrivateSubnet1RouteTableB41A48CC"
-        },
-        "SubnetId": {
-          "Ref": "vpcPrivateSubnet1Subnet934893E8"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/RouteTableAssociation"
-      }
-    },
-    "vpcPrivateSubnet1DefaultRoute1AA8E2E5": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPrivateSubnet1RouteTableB41A48CC"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": {
-          "Ref": "vpcPublicSubnet1NATGateway9C16659E"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/DefaultRoute"
-      }
-    },
-    "vpcPrivateSubnet2Subnet7031C2BA": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "CidrBlock": "172.20.128.0/19",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "AvailabilityZone": "us-east-1b",
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Private"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Private"
-          },
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PrivateSubnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/Subnet"
-      }
-    },
-    "vpcPrivateSubnet2RouteTable7280F23E": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PrivateSubnet2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/RouteTable"
-      }
-    },
-    "vpcPrivateSubnet2RouteTableAssociation007E94D3": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPrivateSubnet2RouteTable7280F23E"
-        },
-        "SubnetId": {
-          "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/RouteTableAssociation"
-      }
-    },
-    "vpcPrivateSubnet2DefaultRouteB0E07F99": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPrivateSubnet2RouteTable7280F23E"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": {
-          "Ref": "vpcPublicSubnet2NATGateway9B8AE11A"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/DefaultRoute"
-      }
-    },
-    "vpcPrivateSubnet3Subnet985AC459": {
-      "Type": "AWS::EC2::Subnet",
-      "Properties": {
-        "CidrBlock": "172.20.160.0/19",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "AvailabilityZone": "us-east-1c",
-        "MapPublicIpOnLaunch": false,
-        "Tags": [
-          {
-            "Key": "aws-cdk:subnet-name",
-            "Value": "Private"
-          },
-          {
-            "Key": "aws-cdk:subnet-type",
-            "Value": "Private"
-          },
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PrivateSubnet3"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/Subnet"
-      }
-    },
-    "vpcPrivateSubnet3RouteTable24DA79A0": {
-      "Type": "AWS::EC2::RouteTable",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc/PrivateSubnet3"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/RouteTable"
-      }
-    },
-    "vpcPrivateSubnet3RouteTableAssociationC58B3C2C": {
-      "Type": "AWS::EC2::SubnetRouteTableAssociation",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPrivateSubnet3RouteTable24DA79A0"
-        },
-        "SubnetId": {
-          "Ref": "vpcPrivateSubnet3Subnet985AC459"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/RouteTableAssociation"
-      }
-    },
-    "vpcPrivateSubnet3DefaultRoute30C45F47": {
-      "Type": "AWS::EC2::Route",
-      "Properties": {
-        "RouteTableId": {
-          "Ref": "vpcPrivateSubnet3RouteTable24DA79A0"
-        },
-        "DestinationCidrBlock": "0.0.0.0/0",
-        "NatGatewayId": {
-          "Ref": "vpcPublicSubnet3NATGateway82F6CA9E"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/DefaultRoute"
-      }
-    },
-    "vpcIGWE57CBDCA": {
-      "Type": "AWS::EC2::InternetGateway",
-      "Properties": {
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/vpc"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/IGW"
-      }
-    },
-    "vpcVPCGW7984C166": {
-      "Type": "AWS::EC2::VPCGatewayAttachment",
-      "Properties": {
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "InternetGatewayId": {
-          "Ref": "vpcIGWE57CBDCA"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/VPCGW"
-      }
-    },
-    "vpcecsendpointSecurityGroupEC109DBE": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "ecs-kerberos-stack/vpc/ecs-endpoint/SecurityGroup",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": {
-              "Fn::GetAtt": [
-                "vpcA2121C38",
-                "CidrBlock"
-              ]
-            },
-            "Description": {
-              "Fn::Join": [
-                "",
-                [
-                  "from ",
-                  {
-                    "Fn::GetAtt": [
-                      "vpcA2121C38",
-                      "CidrBlock"
-                    ]
-                  },
-                  ":443"
-                ]
-              ]
-            },
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow HTTPS traffic",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-sample/ecs-endpoint"
-          }
-        ],
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-endpoint/SecurityGroup/Resource"
-      }
-    },
-    "vpcecsendpointDFDDF6FC": {
-      "Type": "AWS::EC2::VPCEndpoint",
-      "Properties": {
-        "ServiceName": "com.amazonaws.us-east-1.ecs",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "PrivateDnsEnabled": true,
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": [
-              "vpcecsendpointSecurityGroupEC109DBE",
-              "GroupId"
-            ]
-          }
-        ],
-        "SubnetIds": [
-          {
-            "Ref": "vpcPrivateSubnet1Subnet934893E8"
-          },
-          {
-            "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
-          },
-          {
-            "Ref": "vpcPrivateSubnet3Subnet985AC459"
-          }
-        ],
-        "VpcEndpointType": "Interface"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-endpoint/Resource"
-      }
-    },
-    "vpcecsagentendpointSecurityGroupB63A520C": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "ecs-kerberos-stack/vpc/ecs-agent-endpoint/SecurityGroup",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": {
-              "Fn::GetAtt": [
-                "vpcA2121C38",
-                "CidrBlock"
-              ]
-            },
-            "Description": {
-              "Fn::Join": [
-                "",
-                [
-                  "from ",
-                  {
-                    "Fn::GetAtt": [
-                      "vpcA2121C38",
-                      "CidrBlock"
-                    ]
-                  },
-                  ":443"
-                ]
-              ]
-            },
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow HTTPS traffic",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-sample/ecs-agent-endpoint"
-          }
-        ],
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-agent-endpoint/SecurityGroup/Resource"
-      }
-    },
-    "vpcecsagentendpoint0A5E5968": {
-      "Type": "AWS::EC2::VPCEndpoint",
-      "Properties": {
-        "ServiceName": "com.amazonaws.us-east-1.ecs-agent",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "PrivateDnsEnabled": true,
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": [
-              "vpcecsagentendpointSecurityGroupB63A520C",
-              "GroupId"
-            ]
-          }
-        ],
-        "SubnetIds": [
-          {
-            "Ref": "vpcPrivateSubnet1Subnet934893E8"
-          },
-          {
-            "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
-          },
-          {
-            "Ref": "vpcPrivateSubnet3Subnet985AC459"
-          }
-        ],
-        "VpcEndpointType": "Interface"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-agent-endpoint/Resource"
-      }
-    },
-    "vpcecstelemetryendpointSecurityGroupCC058FA5": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "ecs-kerberos-stack/vpc/ecs-telemetry-endpoint/SecurityGroup",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": {
-              "Fn::GetAtt": [
-                "vpcA2121C38",
-                "CidrBlock"
-              ]
-            },
-            "Description": {
-              "Fn::Join": [
-                "",
-                [
-                  "from ",
-                  {
-                    "Fn::GetAtt": [
-                      "vpcA2121C38",
-                      "CidrBlock"
-                    ]
-                  },
-                  ":443"
-                ]
-              ]
-            },
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow HTTPS traffic",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-sample/ecs-telemetry-endpoint"
-          }
-        ],
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-telemetry-endpoint/SecurityGroup/Resource"
-      }
-    },
-    "vpcecstelemetryendpoint2A24F697": {
-      "Type": "AWS::EC2::VPCEndpoint",
-      "Properties": {
-        "ServiceName": "com.amazonaws.us-east-1.ecs-telemetry",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "PrivateDnsEnabled": true,
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": [
-              "vpcecstelemetryendpointSecurityGroupCC058FA5",
-              "GroupId"
-            ]
-          }
-        ],
-        "SubnetIds": [
-          {
-            "Ref": "vpcPrivateSubnet1Subnet934893E8"
-          },
-          {
-            "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
-          },
-          {
-            "Ref": "vpcPrivateSubnet3Subnet985AC459"
-          }
-        ],
-        "VpcEndpointType": "Interface"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-telemetry-endpoint/Resource"
-      }
-    },
-    "vpcecrapiendpointSecurityGroup10513246": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "ecs-kerberos-stack/vpc/ecr-api-endpoint/SecurityGroup",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": {
-              "Fn::GetAtt": [
-                "vpcA2121C38",
-                "CidrBlock"
-              ]
-            },
-            "Description": {
-              "Fn::Join": [
-                "",
-                [
-                  "from ",
-                  {
-                    "Fn::GetAtt": [
-                      "vpcA2121C38",
-                      "CidrBlock"
-                    ]
-                  },
-                  ":443"
-                ]
-              ]
-            },
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow HTTPS traffic",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-sample/ecr-api-endpoint"
-          }
-        ],
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-api-endpoint/SecurityGroup/Resource"
-      }
-    },
-    "vpcecrapiendpoint9BE3D2A9": {
-      "Type": "AWS::EC2::VPCEndpoint",
-      "Properties": {
-        "ServiceName": "com.amazonaws.us-east-1.ecr.api",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "PrivateDnsEnabled": true,
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": [
-              "vpcecrapiendpointSecurityGroup10513246",
-              "GroupId"
-            ]
-          }
-        ],
-        "SubnetIds": [
-          {
-            "Ref": "vpcPrivateSubnet1Subnet934893E8"
-          },
-          {
-            "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
-          },
-          {
-            "Ref": "vpcPrivateSubnet3Subnet985AC459"
-          }
-        ],
-        "VpcEndpointType": "Interface"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-api-endpoint/Resource"
-      }
-    },
-    "vpcecrdockerendpointSecurityGroupE8BE2753": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "ecs-kerberos-stack/vpc/ecr-docker-endpoint/SecurityGroup",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "SecurityGroupIngress": [
-          {
-            "CidrIp": {
-              "Fn::GetAtt": [
-                "vpcA2121C38",
-                "CidrBlock"
-              ]
-            },
-            "Description": {
-              "Fn::Join": [
-                "",
-                [
-                  "from ",
-                  {
-                    "Fn::GetAtt": [
-                      "vpcA2121C38",
-                      "CidrBlock"
-                    ]
-                  },
-                  ":443"
-                ]
-              ]
-            },
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          },
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow HTTPS traffic",
-            "FromPort": 443,
-            "IpProtocol": "tcp",
-            "ToPort": 443
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-sample/ecr-docker-endpoint"
-          }
-        ],
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-docker-endpoint/SecurityGroup/Resource"
-      }
-    },
-    "vpcecrdockerendpoint7818743F": {
-      "Type": "AWS::EC2::VPCEndpoint",
-      "Properties": {
-        "ServiceName": "com.amazonaws.us-east-1.ecr.dkr",
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "PrivateDnsEnabled": true,
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": [
-              "vpcecrdockerendpointSecurityGroupE8BE2753",
-              "GroupId"
-            ]
-          }
-        ],
-        "SubnetIds": [
-          {
-            "Ref": "vpcPrivateSubnet1Subnet934893E8"
-          },
-          {
-            "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
-          },
-          {
-            "Ref": "vpcPrivateSubnet3Subnet985AC459"
-          }
-        ],
-        "VpcEndpointType": "Interface"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-docker-endpoint/Resource"
-      }
-    },
-    "vpcecrs3endpointA9AFFD5D": {
-      "Type": "AWS::EC2::VPCEndpoint",
-      "Properties": {
-        "ServiceName": {
-          "Fn::Join": [
-            "",
-            [
-              "com.amazonaws.",
-              {
-                "Ref": "AWS::Region"
-              },
-              ".s3"
-            ]
-          ]
-        },
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        },
-        "RouteTableIds": [
-          {
-            "Ref": "vpcPrivateSubnet1RouteTableB41A48CC"
-          },
-          {
-            "Ref": "vpcPrivateSubnet2RouteTable7280F23E"
-          },
-          {
-            "Ref": "vpcPrivateSubnet3RouteTable24DA79A0"
-          },
-          {
-            "Ref": "vpcPublicSubnet1RouteTable48A2DF9B"
-          },
-          {
-            "Ref": "vpcPublicSubnet2RouteTableEB40D4CB"
-          },
-          {
-            "Ref": "vpcPublicSubnet3RouteTableA3C00665"
-          }
-        ],
-        "VpcEndpointType": "Gateway"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-s3-endpoint/Resource"
-      }
-    },
-    "ecscluster7830E7B5": {
-      "Type": "AWS::ECS::Cluster",
-      "Properties": {
-        "ClusterName": "ecs-kerberos-sample"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/ecs-cluster/Resource"
-      }
-    },
-    "activedirectoryadminpasswordsecretB1F8F377": {
-      "Type": "AWS::SecretsManager::Secret",
-      "Properties": {
-        "GenerateSecretString": {
-          "ExcludeCharacters": "\"'"
-        },
-        "Name": "/ecs-kerberos-sample/active-directory-administrator-password"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-admin-password-secret/Resource"
-      }
-    },
-    "directory": {
-      "Type": "AWS::DirectoryService::MicrosoftAD",
-      "Properties": {
-        "Name": "directory.ecs-kerberos-sample.com",
-        "Password": {
-          "Fn::Join": [
-            "",
-            [
-              "{{resolve:secretsmanager:",
-              {
-                "Ref": "activedirectoryadminpasswordsecretB1F8F377"
-              },
-              ":SecretString:::}}"
-            ]
-          ]
-        },
-        "VpcSettings": {
-          "SubnetIds": [
-            {
-              "Ref": "vpcPublicSubnet1Subnet2E65531E"
-            },
-            {
-              "Ref": "vpcPublicSubnet2Subnet009B674F"
-            }
-          ],
-          "VpcId": {
-            "Ref": "vpcA2121C38"
-          }
-        },
-        "Edition": "Standard"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/directory"
-      }
-    },
-    "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "ecs-kerberos-stack/active-directory-management-instance/InstanceSecurityGroup",
-        "SecurityGroupEgress": [
-          {
-            "CidrIp": "0.0.0.0/0",
-            "Description": "Allow all outbound traffic by default",
-            "IpProtocol": "-1"
-          }
-        ],
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/active-directory-management-instance"
-          }
-        ],
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/InstanceSecurityGroup/Resource"
-      }
-    },
-    "activedirectorymanagementinstanceInstanceRole8E7D9EE2": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": "ec2.amazonaws.com"
-              }
-            }
-          ],
-          "Version": "2012-10-17"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/active-directory-management-instance"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/InstanceRole/Resource"
-      }
-    },
-    "activedirectorymanagementinstanceInstanceProfile055E754F": {
-      "Type": "AWS::IAM::InstanceProfile",
-      "Properties": {
-        "Roles": [
-          {
-            "Ref": "activedirectorymanagementinstanceInstanceRole8E7D9EE2"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/InstanceProfile"
-      }
-    },
-    "activedirectorymanagementinstanceBB5FEB9F": {
-      "Type": "AWS::EC2::Instance",
-      "Properties": {
-        "AvailabilityZone": "us-east-1a",
-        "IamInstanceProfile": {
-          "Ref": "activedirectorymanagementinstanceInstanceProfile055E754F"
-        },
-        "ImageId": "ami-029bfac3973c1bda1",
-        "InstanceType": "t2.micro",
-        "KeyName": {
-          "Ref": "keyPairName"
-        },
-        "SecurityGroupIds": [
-          {
-            "Fn::GetAtt": [
-              "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7",
-              "GroupId"
-            ]
-          }
-        ],
-        "SubnetId": {
-          "Ref": "vpcPublicSubnet1Subnet2E65531E"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "ecs-kerberos-stack/active-directory-management-instance"
-          }
-        ],
-        "UserData": {
-          "Fn::Base64": "<powershell></powershell>"
-        }
-      },
-      "DependsOn": [
-        "activedirectorymanagementinstanceInstanceRole8E7D9EE2"
-      ],
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/Resource"
-      }
-    },
-    "activedirectorymanagementinstancesecuritygroupid8D21CA7F": {
-      "Type": "AWS::SSM::Parameter",
-      "Properties": {
-        "Type": "String",
-        "Value": {
-          "Fn::GetAtt": [
-            "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7",
-            "GroupId"
-          ]
-        },
-        "AllowedPattern": ".*",
-        "Description": "ID of the Security Group for the Windows Server instance used to manage the Active Directory",
-        "Name": "/ecs-kerberos-sample/directory-management-server-security-group-id",
-        "Tier": "Standard"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance-security-group-id/Resource"
-      }
-    },
-    "activedirectoryid6EC4AC3C": {
-      "Type": "AWS::SSM::Parameter",
-      "Properties": {
-        "Type": "String",
-        "Value": {
-          "Fn::GetAtt": [
-            "directory",
-            "Alias"
-          ]
-        },
-        "AllowedPattern": ".*",
-        "Description": "Active Directory ID",
-        "Name": "/ecs-kerberos-sample/active-directory-id",
-        "Tier": "Standard"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/active-directory-id/Resource"
-      }
-    },
-    "directorydhcpos": {
-      "Type": "AWS::EC2::DHCPOptions",
-      "Properties": {
-        "DomainNameServers": {
-          "Fn::GetAtt": [
-            "directory",
-            "DnsIpAddresses"
-          ]
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/directory-dhcp-os"
-      }
-    },
-    "directorydhcposassociation": {
-      "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
-      "Properties": {
-        "DhcpOptionsId": {
-          "Ref": "directorydhcpos"
-        },
-        "VpcId": {
-          "Ref": "vpcA2121C38"
-        }
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/directory-dhcp-os-association"
-      }
-    },
-    "CDKMetadata": {
-      "Type": "AWS::CDK::Metadata",
-      "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Sy27CMBD8Fu7GNFE/oCggyqElChV342yoIbGj9RqEovx77TxI1NOOZ0ej2fVGPIpj/rb4EA+7lPlt1UiDwJsjCXljSaFTgaICAmQZWONQQmAPjmpHLDHaEjpJgRv7LQteDciYN6dahtYpTVjqzqWSR3fW0MknlBlH8CPOJUz8xK2tNVIJUka/xAFs92ko34J2guAhnixFdfdwMt5rn9vjUdAnGV5r8iP+VqCJdbpCSPBxtzqvjfLkEaRDRc8dGld3wf4T3uulHkznBnu/G6H7fc3x5jNJD3WYxw4uM2Y2bctAWt4kpbNh/V46wJZZkAhkK6HFBdD/VvceQnrUslwhSDL4tIB3JYH73peSaKwpaL1hSlS8yUy/8rGOKVM0hSr9R1pbhVNApS/THcyPom1bpk0O/GpX9yjm0TuPFler1BKdJlUBz/r6BynqM65oAgAA"
-      },
-      "Metadata": {
-        "aws:cdk:path": "ecs-kerberos-stack/CDKMetadata/Default"
-      }
-    }
-  },
-  "Outputs": {
-    "ActiveDirectoryAdminPasswordSecretARN": {
-      "Value": {
-        "Ref": "activedirectoryadminpasswordsecretB1F8F377"
-      }
-    },
-    "DirectoryManagementInstanceSecurityGroupID": {
-      "Value": {
-        "Fn::GetAtt": [
-          "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7",
-          "GroupId"
-        ]
-      }
-    }
+ "Parameters": {
+  "keyPairName": {
+   "Type": "String",
+   "Description": "The name of the EC2 keypair associated with the Windows Server instance."
   }
+ },
+ "Resources": {
+  "vpcA2121C38": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "172.20.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/Resource"
+   }
+  },
+  "vpcPublicSubnet1Subnet2E65531E": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "172.20.0.0/19",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/Subnet"
+   }
+  },
+  "vpcPublicSubnet1RouteTable48A2DF9B": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/RouteTable"
+   }
+  },
+  "vpcPublicSubnet1RouteTableAssociation5D3F4579": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPublicSubnet1RouteTable48A2DF9B"
+    },
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet1Subnet2E65531E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/RouteTableAssociation"
+   }
+  },
+  "vpcPublicSubnet1DefaultRoute10708846": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPublicSubnet1RouteTable48A2DF9B"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "vpcIGWE57CBDCA"
+    }
+   },
+   "DependsOn": [
+    "vpcVPCGW7984C166"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/DefaultRoute"
+   }
+  },
+  "vpcPublicSubnet1EIPDA49DCBE": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/EIP"
+   }
+  },
+  "vpcPublicSubnet1NATGateway9C16659E": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet1Subnet2E65531E"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "vpcPublicSubnet1EIPDA49DCBE",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet1/NATGateway"
+   }
+  },
+  "vpcPublicSubnet2Subnet009B674F": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "172.20.32.0/19",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/Subnet"
+   }
+  },
+  "vpcPublicSubnet2RouteTableEB40D4CB": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/RouteTable"
+   }
+  },
+  "vpcPublicSubnet2RouteTableAssociation21F81B59": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPublicSubnet2RouteTableEB40D4CB"
+    },
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet2Subnet009B674F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/RouteTableAssociation"
+   }
+  },
+  "vpcPublicSubnet2DefaultRouteA1EC0F60": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPublicSubnet2RouteTableEB40D4CB"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "vpcIGWE57CBDCA"
+    }
+   },
+   "DependsOn": [
+    "vpcVPCGW7984C166"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/DefaultRoute"
+   }
+  },
+  "vpcPublicSubnet2EIP9B3743B1": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/EIP"
+   }
+  },
+  "vpcPublicSubnet2NATGateway9B8AE11A": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet2Subnet009B674F"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "vpcPublicSubnet2EIP9B3743B1",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet2/NATGateway"
+   }
+  },
+  "vpcPublicSubnet3Subnet11B92D7C": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "CidrBlock": "172.20.64.0/19",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Public"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/Subnet"
+   }
+  },
+  "vpcPublicSubnet3RouteTableA3C00665": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/RouteTable"
+   }
+  },
+  "vpcPublicSubnet3RouteTableAssociationD102D1C4": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPublicSubnet3RouteTableA3C00665"
+    },
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet3Subnet11B92D7C"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/RouteTableAssociation"
+   }
+  },
+  "vpcPublicSubnet3DefaultRoute3F356A11": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPublicSubnet3RouteTableA3C00665"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "vpcIGWE57CBDCA"
+    }
+   },
+   "DependsOn": [
+    "vpcVPCGW7984C166"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/DefaultRoute"
+   }
+  },
+  "vpcPublicSubnet3EIP2C3B9D91": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/EIP"
+   }
+  },
+  "vpcPublicSubnet3NATGateway82F6CA9E": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet3Subnet11B92D7C"
+    },
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "vpcPublicSubnet3EIP2C3B9D91",
+      "AllocationId"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PublicSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PublicSubnet3/NATGateway"
+   }
+  },
+  "vpcPrivateSubnet1Subnet934893E8": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "AvailabilityZone": "us-east-1a",
+    "CidrBlock": "172.20.96.0/19",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/Subnet"
+   }
+  },
+  "vpcPrivateSubnet1RouteTableB41A48CC": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PrivateSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/RouteTable"
+   }
+  },
+  "vpcPrivateSubnet1RouteTableAssociation67945127": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPrivateSubnet1RouteTableB41A48CC"
+    },
+    "SubnetId": {
+     "Ref": "vpcPrivateSubnet1Subnet934893E8"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/RouteTableAssociation"
+   }
+  },
+  "vpcPrivateSubnet1DefaultRoute1AA8E2E5": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPrivateSubnet1RouteTableB41A48CC"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "vpcPublicSubnet1NATGateway9C16659E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet1/DefaultRoute"
+   }
+  },
+  "vpcPrivateSubnet2Subnet7031C2BA": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "AvailabilityZone": "us-east-1b",
+    "CidrBlock": "172.20.128.0/19",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/Subnet"
+   }
+  },
+  "vpcPrivateSubnet2RouteTable7280F23E": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PrivateSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/RouteTable"
+   }
+  },
+  "vpcPrivateSubnet2RouteTableAssociation007E94D3": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPrivateSubnet2RouteTable7280F23E"
+    },
+    "SubnetId": {
+     "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/RouteTableAssociation"
+   }
+  },
+  "vpcPrivateSubnet2DefaultRouteB0E07F99": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPrivateSubnet2RouteTable7280F23E"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "vpcPublicSubnet2NATGateway9B8AE11A"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet2/DefaultRoute"
+   }
+  },
+  "vpcPrivateSubnet3Subnet985AC459": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "AvailabilityZone": "us-east-1c",
+    "CidrBlock": "172.20.160.0/19",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "Private"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PrivateSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/Subnet"
+   }
+  },
+  "vpcPrivateSubnet3RouteTable24DA79A0": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc/PrivateSubnet3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/RouteTable"
+   }
+  },
+  "vpcPrivateSubnet3RouteTableAssociationC58B3C2C": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPrivateSubnet3RouteTable24DA79A0"
+    },
+    "SubnetId": {
+     "Ref": "vpcPrivateSubnet3Subnet985AC459"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/RouteTableAssociation"
+   }
+  },
+  "vpcPrivateSubnet3DefaultRoute30C45F47": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "vpcPrivateSubnet3RouteTable24DA79A0"
+    },
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "vpcPublicSubnet3NATGateway82F6CA9E"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/PrivateSubnet3/DefaultRoute"
+   }
+  },
+  "vpcIGWE57CBDCA": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/IGW"
+   }
+  },
+  "vpcVPCGW7984C166": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "InternetGatewayId": {
+     "Ref": "vpcIGWE57CBDCA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/VPCGW"
+   }
+  },
+  "vpcecsendpointSecurityGroupEC109DBE": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ecs-kerberos-stack/vpc/ecs-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "vpcA2121C38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "vpcA2121C38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS traffic",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-sample/ecs-endpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "vpcecsendpointDFDDF6FC": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "ServiceName": "com.amazonaws.us-east-1.ecs",
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "vpcecsendpointSecurityGroupEC109DBE",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetIds": [
+     {
+      "Ref": "vpcPrivateSubnet1Subnet934893E8"
+     },
+     {
+      "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
+     },
+     {
+      "Ref": "vpcPrivateSubnet3Subnet985AC459"
+     }
+    ],
+    "VpcEndpointType": "Interface"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-endpoint/Resource"
+   }
+  },
+  "vpcecsagentendpointSecurityGroupB63A520C": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ecs-kerberos-stack/vpc/ecs-agent-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "vpcA2121C38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "vpcA2121C38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS traffic",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-sample/ecs-agent-endpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-agent-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "vpcecsagentendpoint0A5E5968": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "ServiceName": "com.amazonaws.us-east-1.ecs-agent",
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "vpcecsagentendpointSecurityGroupB63A520C",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetIds": [
+     {
+      "Ref": "vpcPrivateSubnet1Subnet934893E8"
+     },
+     {
+      "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
+     },
+     {
+      "Ref": "vpcPrivateSubnet3Subnet985AC459"
+     }
+    ],
+    "VpcEndpointType": "Interface"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-agent-endpoint/Resource"
+   }
+  },
+  "vpcecstelemetryendpointSecurityGroupCC058FA5": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ecs-kerberos-stack/vpc/ecs-telemetry-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "vpcA2121C38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "vpcA2121C38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS traffic",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-sample/ecs-telemetry-endpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-telemetry-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "vpcecstelemetryendpoint2A24F697": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "ServiceName": "com.amazonaws.us-east-1.ecs-telemetry",
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "vpcecstelemetryendpointSecurityGroupCC058FA5",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetIds": [
+     {
+      "Ref": "vpcPrivateSubnet1Subnet934893E8"
+     },
+     {
+      "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
+     },
+     {
+      "Ref": "vpcPrivateSubnet3Subnet985AC459"
+     }
+    ],
+    "VpcEndpointType": "Interface"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecs-telemetry-endpoint/Resource"
+   }
+  },
+  "vpcecrapiendpointSecurityGroup10513246": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ecs-kerberos-stack/vpc/ecr-api-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "vpcA2121C38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "vpcA2121C38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS traffic",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-sample/ecr-api-endpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-api-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "vpcecrapiendpoint9BE3D2A9": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "ServiceName": "com.amazonaws.us-east-1.ecr.api",
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "vpcecrapiendpointSecurityGroup10513246",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetIds": [
+     {
+      "Ref": "vpcPrivateSubnet1Subnet934893E8"
+     },
+     {
+      "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
+     },
+     {
+      "Ref": "vpcPrivateSubnet3Subnet985AC459"
+     }
+    ],
+    "VpcEndpointType": "Interface"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-api-endpoint/Resource"
+   }
+  },
+  "vpcecrdockerendpointSecurityGroupE8BE2753": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ecs-kerberos-stack/vpc/ecr-docker-endpoint/SecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "SecurityGroupIngress": [
+     {
+      "CidrIp": {
+       "Fn::GetAtt": [
+        "vpcA2121C38",
+        "CidrBlock"
+       ]
+      },
+      "Description": {
+       "Fn::Join": [
+        "",
+        [
+         "from ",
+         {
+          "Fn::GetAtt": [
+           "vpcA2121C38",
+           "CidrBlock"
+          ]
+         },
+         ":443"
+        ]
+       ]
+      },
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     },
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow HTTPS traffic",
+      "FromPort": 443,
+      "IpProtocol": "tcp",
+      "ToPort": 443
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-sample/ecr-docker-endpoint"
+     }
+    ],
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-docker-endpoint/SecurityGroup/Resource"
+   }
+  },
+  "vpcecrdockerendpoint7818743F": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "ServiceName": "com.amazonaws.us-east-1.ecr.dkr",
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "PrivateDnsEnabled": true,
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "vpcecrdockerendpointSecurityGroupE8BE2753",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetIds": [
+     {
+      "Ref": "vpcPrivateSubnet1Subnet934893E8"
+     },
+     {
+      "Ref": "vpcPrivateSubnet2Subnet7031C2BA"
+     },
+     {
+      "Ref": "vpcPrivateSubnet3Subnet985AC459"
+     }
+    ],
+    "VpcEndpointType": "Interface"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-docker-endpoint/Resource"
+   }
+  },
+  "vpcecrs3endpointA9AFFD5D": {
+   "Type": "AWS::EC2::VPCEndpoint",
+   "Properties": {
+    "ServiceName": {
+     "Fn::Join": [
+      "",
+      [
+       "com.amazonaws.",
+       {
+        "Ref": "AWS::Region"
+       },
+       ".s3"
+      ]
+     ]
+    },
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    },
+    "RouteTableIds": [
+     {
+      "Ref": "vpcPrivateSubnet1RouteTableB41A48CC"
+     },
+     {
+      "Ref": "vpcPrivateSubnet2RouteTable7280F23E"
+     },
+     {
+      "Ref": "vpcPrivateSubnet3RouteTable24DA79A0"
+     },
+     {
+      "Ref": "vpcPublicSubnet1RouteTable48A2DF9B"
+     },
+     {
+      "Ref": "vpcPublicSubnet2RouteTableEB40D4CB"
+     },
+     {
+      "Ref": "vpcPublicSubnet3RouteTableA3C00665"
+     }
+    ],
+    "VpcEndpointType": "Gateway"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/vpc/ecr-s3-endpoint/Resource"
+   }
+  },
+  "ecscluster7830E7B5": {
+   "Type": "AWS::ECS::Cluster",
+   "Properties": {
+    "ClusterName": "ecs-kerberos-sample"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/ecs-cluster/Resource"
+   }
+  },
+  "activedirectoryadminpasswordsecretB1F8F377": {
+   "Type": "AWS::SecretsManager::Secret",
+   "Properties": {
+    "GenerateSecretString": {
+     "ExcludeCharacters": "\"'"
+    },
+    "Name": "/ecs-kerberos-sample/active-directory-administrator-password"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-admin-password-secret/Resource"
+   }
+  },
+  "directory": {
+   "Type": "AWS::DirectoryService::MicrosoftAD",
+   "Properties": {
+    "Name": "directory.ecs-kerberos-sample.com",
+    "Password": {
+     "Fn::Join": [
+      "",
+      [
+       "{{resolve:secretsmanager:",
+       {
+        "Ref": "activedirectoryadminpasswordsecretB1F8F377"
+       },
+       ":SecretString:::}}"
+      ]
+     ]
+    },
+    "VpcSettings": {
+     "SubnetIds": [
+      {
+       "Ref": "vpcPublicSubnet1Subnet2E65531E"
+      },
+      {
+       "Ref": "vpcPublicSubnet2Subnet009B674F"
+      }
+     ],
+     "VpcId": {
+      "Ref": "vpcA2121C38"
+     }
+    },
+    "Edition": "Standard"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/directory"
+   }
+  },
+  "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7": {
+   "Type": "AWS::EC2::SecurityGroup",
+   "Properties": {
+    "GroupDescription": "ecs-kerberos-stack/active-directory-management-instance/InstanceSecurityGroup",
+    "SecurityGroupEgress": [
+     {
+      "CidrIp": "0.0.0.0/0",
+      "Description": "Allow all outbound traffic by default",
+      "IpProtocol": "-1"
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/active-directory-management-instance"
+     }
+    ],
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/InstanceSecurityGroup/Resource"
+   }
+  },
+  "activedirectorymanagementinstanceInstanceRole8E7D9EE2": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "ec2.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/active-directory-management-instance"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/InstanceRole/Resource"
+   }
+  },
+  "activedirectorymanagementinstanceInstanceProfile055E754F": {
+   "Type": "AWS::IAM::InstanceProfile",
+   "Properties": {
+    "Roles": [
+     {
+      "Ref": "activedirectorymanagementinstanceInstanceRole8E7D9EE2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/InstanceProfile"
+   }
+  },
+  "activedirectorymanagementinstanceBB5FEB9F": {
+   "Type": "AWS::EC2::Instance",
+   "Properties": {
+    "AvailabilityZone": "us-east-1a",
+    "IamInstanceProfile": {
+     "Ref": "activedirectorymanagementinstanceInstanceProfile055E754F"
+    },
+    "ImageId": "ami-029bfac3973c1bda1",
+    "InstanceType": "t2.micro",
+    "KeyName": {
+     "Ref": "keyPairName"
+    },
+    "SecurityGroupIds": [
+     {
+      "Fn::GetAtt": [
+       "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7",
+       "GroupId"
+      ]
+     }
+    ],
+    "SubnetId": {
+     "Ref": "vpcPublicSubnet1Subnet2E65531E"
+    },
+    "Tags": [
+     {
+      "Key": "Name",
+      "Value": "ecs-kerberos-stack/active-directory-management-instance"
+     }
+    ],
+    "UserData": {
+     "Fn::Base64": "<powershell></powershell>"
+    }
+   },
+   "DependsOn": [
+    "activedirectorymanagementinstanceInstanceRole8E7D9EE2"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance/Resource"
+   }
+  },
+  "activedirectorymanagementinstancesecuritygroupid8D21CA7F": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7",
+      "GroupId"
+     ]
+    },
+    "AllowedPattern": ".*",
+    "Description": "ID of the Security Group for the Windows Server instance used to manage the Active Directory",
+    "Name": "/ecs-kerberos-sample/directory-management-server-security-group-id",
+    "Tier": "Standard"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-management-instance-security-group-id/Resource"
+   }
+  },
+  "activedirectoryid6EC4AC3C": {
+   "Type": "AWS::SSM::Parameter",
+   "Properties": {
+    "Type": "String",
+    "Value": {
+     "Fn::GetAtt": [
+      "directory",
+      "Alias"
+     ]
+    },
+    "AllowedPattern": ".*",
+    "Description": "Active Directory ID",
+    "Name": "/ecs-kerberos-sample/active-directory-id",
+    "Tier": "Standard"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/active-directory-id/Resource"
+   }
+  },
+  "directorydhcpos": {
+   "Type": "AWS::EC2::DHCPOptions",
+   "Properties": {
+    "DomainNameServers": {
+     "Fn::GetAtt": [
+      "directory",
+      "DnsIpAddresses"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/directory-dhcp-os"
+   }
+  },
+  "directorydhcposassociation": {
+   "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+   "Properties": {
+    "DhcpOptionsId": {
+     "Ref": "directorydhcpos"
+    },
+    "VpcId": {
+     "Ref": "vpcA2121C38"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/directory-dhcp-os-association"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11SwW7CMAz9lt1DWKdpuw4VxDhsVGXiHozLAm1SOQ4IVf33JbTQaie/PD89PTtOZPKeyOenD3VxE9ifpg1YQtlsWMFJpIXJFKkKGUnk6KwnwMiuPdeeRWqNY/LAkbv3WxG9GoQX2WxriK1tlorM70oNG78zeJMPKLee8UftShz4gZs5Z0Er1tY8xBEsVlks34qXivGiriIjfQ5wMF6ZkDvgu6BL0r9mHEb8rdCwuOkKBRjiLsy+tjqQGwRPmq9Lsr6+BftPBK+HujcdG6zCbpTp9jXG8880W9dxHte7jJjRtK1AcLJJS+/i+oO0h61wCITsKmXUASn81u3dhwyoFXtNCGzp6pDOGlCG3pcGss4WPJsLrSrZ5LZb+b3eU2ZkC12Gj3SuiqdA2hyGOxgfRdu2wtg9yqObnpM3mbyGWzo6rSfkDesKZd7VP4so/K9oAgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ecs-kerberos-stack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ActiveDirectoryAdminPasswordSecretARN": {
+   "Value": {
+    "Ref": "activedirectoryadminpasswordsecretB1F8F377"
+   }
+  },
+  "DirectoryManagementInstanceSecurityGroupID": {
+   "Value": {
+    "Fn::GetAtt": [
+     "activedirectorymanagementinstanceInstanceSecurityGroup90D500F7",
+     "GroupId"
+    ]
+   }
+  }
+ }
 }

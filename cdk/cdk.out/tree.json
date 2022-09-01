@@ -9,7 +9,7 @@
         "path": "Tree",
         "constructInfo": {
           "fqn": "@aws-cdk/core.Construct",
-          "version": "1.122.0"
+          "version": "1.171.0"
         }
       },
       "ecs-kerberos-stack": {
@@ -21,7 +21,7 @@
             "path": "ecs-kerberos-stack/keyPairName",
             "constructInfo": {
               "fqn": "@aws-cdk/core.CfnParameter",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "vpc": {
@@ -48,7 +48,7 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.CfnVPC",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "PublicSubnet1": {
@@ -61,11 +61,11 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
-                        "cidrBlock": "172.20.0.0/19",
                         "vpcId": {
                           "Ref": "vpcA2121C38"
                         },
                         "availabilityZone": "us-east-1a",
+                        "cidrBlock": "172.20.0.0/19",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
                           {
@@ -85,7 +85,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Acl": {
@@ -93,7 +93,7 @@
                     "path": "ecs-kerberos-stack/vpc/PublicSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Resource",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTable": {
@@ -115,7 +115,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTableAssociation": {
@@ -134,7 +134,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "DefaultRoute": {
@@ -154,7 +154,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRoute",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "EIP": {
@@ -174,7 +174,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnEIP",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "NATGateway": {
@@ -202,13 +202,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnNatGateway",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "PublicSubnet2": {
@@ -221,11 +221,11 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
-                        "cidrBlock": "172.20.32.0/19",
                         "vpcId": {
                           "Ref": "vpcA2121C38"
                         },
                         "availabilityZone": "us-east-1b",
+                        "cidrBlock": "172.20.32.0/19",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
                           {
@@ -245,7 +245,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Acl": {
@@ -253,7 +253,7 @@
                     "path": "ecs-kerberos-stack/vpc/PublicSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Resource",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTable": {
@@ -275,7 +275,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTableAssociation": {
@@ -294,7 +294,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "DefaultRoute": {
@@ -314,7 +314,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRoute",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "EIP": {
@@ -334,7 +334,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnEIP",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "NATGateway": {
@@ -362,13 +362,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnNatGateway",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "PublicSubnet3": {
@@ -381,11 +381,11 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
-                        "cidrBlock": "172.20.64.0/19",
                         "vpcId": {
                           "Ref": "vpcA2121C38"
                         },
                         "availabilityZone": "us-east-1c",
+                        "cidrBlock": "172.20.64.0/19",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
                           {
@@ -405,7 +405,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Acl": {
@@ -413,7 +413,7 @@
                     "path": "ecs-kerberos-stack/vpc/PublicSubnet3/Acl",
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Resource",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTable": {
@@ -435,7 +435,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTableAssociation": {
@@ -454,7 +454,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "DefaultRoute": {
@@ -474,7 +474,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRoute",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "EIP": {
@@ -494,7 +494,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnEIP",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "NATGateway": {
@@ -522,13 +522,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnNatGateway",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.PublicSubnet",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "PrivateSubnet1": {
@@ -541,11 +541,11 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
-                        "cidrBlock": "172.20.96.0/19",
                         "vpcId": {
                           "Ref": "vpcA2121C38"
                         },
                         "availabilityZone": "us-east-1a",
+                        "cidrBlock": "172.20.96.0/19",
                         "mapPublicIpOnLaunch": false,
                         "tags": [
                           {
@@ -565,7 +565,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Acl": {
@@ -573,7 +573,7 @@
                     "path": "ecs-kerberos-stack/vpc/PrivateSubnet1/Acl",
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Resource",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTable": {
@@ -595,7 +595,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTableAssociation": {
@@ -614,7 +614,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "DefaultRoute": {
@@ -634,13 +634,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRoute",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "PrivateSubnet2": {
@@ -653,11 +653,11 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
-                        "cidrBlock": "172.20.128.0/19",
                         "vpcId": {
                           "Ref": "vpcA2121C38"
                         },
                         "availabilityZone": "us-east-1b",
+                        "cidrBlock": "172.20.128.0/19",
                         "mapPublicIpOnLaunch": false,
                         "tags": [
                           {
@@ -677,7 +677,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Acl": {
@@ -685,7 +685,7 @@
                     "path": "ecs-kerberos-stack/vpc/PrivateSubnet2/Acl",
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Resource",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTable": {
@@ -707,7 +707,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTableAssociation": {
@@ -726,7 +726,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "DefaultRoute": {
@@ -746,13 +746,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRoute",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "PrivateSubnet3": {
@@ -765,11 +765,11 @@
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
                       "aws:cdk:cloudformation:props": {
-                        "cidrBlock": "172.20.160.0/19",
                         "vpcId": {
                           "Ref": "vpcA2121C38"
                         },
                         "availabilityZone": "us-east-1c",
+                        "cidrBlock": "172.20.160.0/19",
                         "mapPublicIpOnLaunch": false,
                         "tags": [
                           {
@@ -789,7 +789,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnet",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Acl": {
@@ -797,7 +797,7 @@
                     "path": "ecs-kerberos-stack/vpc/PrivateSubnet3/Acl",
                     "constructInfo": {
                       "fqn": "@aws-cdk/core.Resource",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTable": {
@@ -819,7 +819,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRouteTable",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "RouteTableAssociation": {
@@ -838,7 +838,7 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSubnetRouteTableAssociation",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "DefaultRoute": {
@@ -858,13 +858,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnRoute",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.PrivateSubnet",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "IGW": {
@@ -883,7 +883,7 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.CfnInternetGateway",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "VPCGW": {
@@ -902,7 +902,7 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.CfnVPCGatewayAttachment",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "ecs-endpoint": {
@@ -975,13 +975,13 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
-                          "version": "1.122.0"
+                          "version": "1.171.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Resource": {
@@ -1019,13 +1019,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnVPCEndpoint",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.InterfaceVpcEndpoint",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "ecs-agent-endpoint": {
@@ -1098,13 +1098,13 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
-                          "version": "1.122.0"
+                          "version": "1.171.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Resource": {
@@ -1142,13 +1142,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnVPCEndpoint",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.InterfaceVpcEndpoint",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "ecs-telemetry-endpoint": {
@@ -1221,13 +1221,13 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
-                          "version": "1.122.0"
+                          "version": "1.171.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Resource": {
@@ -1265,13 +1265,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnVPCEndpoint",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.InterfaceVpcEndpoint",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "ecr-api-endpoint": {
@@ -1344,13 +1344,13 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
-                          "version": "1.122.0"
+                          "version": "1.171.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Resource": {
@@ -1388,13 +1388,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnVPCEndpoint",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.InterfaceVpcEndpoint",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "ecr-docker-endpoint": {
@@ -1467,13 +1467,13 @@
                         },
                         "constructInfo": {
                           "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
-                          "version": "1.122.0"
+                          "version": "1.171.0"
                         }
                       }
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   },
                   "Resource": {
@@ -1511,13 +1511,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnVPCEndpoint",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.InterfaceVpcEndpoint",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "ecr-s3-endpoint": {
@@ -1570,19 +1570,19 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnVPCEndpoint",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.GatewayVpcEndpoint",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ec2.Vpc",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "ecs-cluster": {
@@ -1600,13 +1600,13 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ecs.CfnCluster",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ecs.Cluster",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "active-directory-admin-password-secret": {
@@ -1627,13 +1627,13 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-secretsmanager.CfnSecret",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-secretsmanager.Secret",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "ActiveDirectoryAdminPasswordSecretARN": {
@@ -1641,7 +1641,7 @@
             "path": "ecs-kerberos-stack/ActiveDirectoryAdminPasswordSecretARN",
             "constructInfo": {
               "fqn": "@aws-cdk/core.CfnOutput",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "directory": {
@@ -1681,7 +1681,7 @@
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-directoryservice.CfnMicrosoftAD",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "active-directory-management-instance": {
@@ -1719,13 +1719,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-ec2.CfnSecurityGroup",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.SecurityGroup",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "InstanceRole": {
@@ -1760,13 +1760,13 @@
                     },
                     "constructInfo": {
                       "fqn": "@aws-cdk/aws-iam.CfnRole",
-                      "version": "1.122.0"
+                      "version": "1.171.0"
                     }
                   }
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-iam.Role",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "InstanceProfile": {
@@ -1784,7 +1784,7 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-iam.CfnInstanceProfile",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               },
               "Resource": {
@@ -1826,13 +1826,13 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ec2.CfnInstance",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ec2.Instance",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "active-directory-management-instance-security-group-id": {
@@ -1860,13 +1860,13 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ssm.CfnParameter",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ssm.StringParameter",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "DirectoryManagementInstanceSecurityGroupID": {
@@ -1874,7 +1874,7 @@
             "path": "ecs-kerberos-stack/DirectoryManagementInstanceSecurityGroupID",
             "constructInfo": {
               "fqn": "@aws-cdk/core.CfnOutput",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "active-directory-id": {
@@ -1902,13 +1902,13 @@
                 },
                 "constructInfo": {
                   "fqn": "@aws-cdk/aws-ssm.CfnParameter",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ssm.StringParameter",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "directory-dhcp-os": {
@@ -1927,7 +1927,7 @@
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ec2.CfnDHCPOptions",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "directory-dhcp-os-association": {
@@ -1946,7 +1946,7 @@
             },
             "constructInfo": {
               "fqn": "@aws-cdk/aws-ec2.CfnVPCDHCPOptionsAssociation",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           },
           "CDKMetadata": {
@@ -1958,25 +1958,25 @@
                 "path": "ecs-kerberos-stack/CDKMetadata/Default",
                 "constructInfo": {
                   "fqn": "@aws-cdk/core.CfnResource",
-                  "version": "1.122.0"
+                  "version": "1.171.0"
                 }
               }
             },
             "constructInfo": {
               "fqn": "@aws-cdk/core.Construct",
-              "version": "1.122.0"
+              "version": "1.171.0"
             }
           }
         },
         "constructInfo": {
           "fqn": "@aws-cdk/core.Stack",
-          "version": "1.122.0"
+          "version": "1.171.0"
         }
       }
     },
     "constructInfo": {
       "fqn": "@aws-cdk/core.App",
-      "version": "1.122.0"
+      "version": "1.171.0"
     }
   }
 }
