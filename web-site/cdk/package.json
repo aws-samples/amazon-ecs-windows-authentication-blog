@@ -11,7 +11,7 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "1.122.0",
+    "@aws-cdk/assert": "1.180.0",
     "@types/jest": "^27.0.1",
     "@types/node": "16.9.1",
     "jest": "^27.1.1",
@@ -21,17 +21,17 @@
     "typescript": "~4.4.3"
   },
   "dependencies": {
-    "@aws-cdk/aws-directoryservice": "1.122.0",
-    "@aws-cdk/aws-ec2": "1.122.0",
-    "@aws-cdk/aws-ecr": "1.122.0",
-    "@aws-cdk/aws-ecs": "1.122.0",
-    "@aws-cdk/aws-ecs-patterns": "1.122.0",
-    "@aws-cdk/aws-iam": "1.122.0",
-    "@aws-cdk/aws-rds": "1.122.0",
-    "@aws-cdk/aws-secretsmanager": "1.122.0",
-    "@aws-cdk/aws-servicediscovery": "1.122.0",
-    "@aws-cdk/aws-ssm": "^1.122.0",
-    "@aws-cdk/core": "1.122.0",
+    "@aws-cdk/aws-directoryservice": "1.180.0",
+    "@aws-cdk/aws-ec2": "1.180.0",
+    "@aws-cdk/aws-ecr": "1.180.0",
+    "@aws-cdk/aws-ecs": "1.180.0",
+    "@aws-cdk/aws-ecs-patterns": "1.180.0",
+    "@aws-cdk/aws-iam": "1.180.0",
+    "@aws-cdk/aws-rds": "1.180.0",
+    "@aws-cdk/aws-secretsmanager": "1.180.0",
+    "@aws-cdk/aws-servicediscovery": "1.180.0",
+    "@aws-cdk/aws-ssm": "^1.180.0",
+    "@aws-cdk/core": "1.180.0",
     "source-map-support": "^0.5.20"
   }
 }
